@@ -1,17 +1,15 @@
 import React from "react";
 import LabeledInput from "../Elements/LabeledInput";
 import Button from "../Elements/Button";
-import CheckBox from "../Elements/CheckBox";
+import { Link } from "react-router";
 
 function FormSignUp() {
   return (
     <>
       {/* form start */}
       <div className="mt-16">
-        <div className="flex justify-center font-bold text-2xl mb-4">
-            Create an account
-        </div>
-      <form action="">
+        <div className="flex justify-center font-bold text-2xl mb-4">Create an account</div>
+        <form action="">
           <div className="mb-6">
             <LabeledInput label="Name" id="name" type="text" placeholder="Widi Puriarto" name="name" />
           </div>
@@ -22,7 +20,7 @@ function FormSignUp() {
             <LabeledInput label="Password" id="password" type="password" placeholder="••••••••" name="password" />
           </div>
           <div className="mb-3 text-sm text-gray-03">
-            By continuing, you agree to our <a className="text-primary">terms of service.</a> 
+            By continuing, you agree to our <a className="text-primary">terms of service.</a>
           </div>
           <Button>Login</Button>
         </form>
@@ -50,8 +48,11 @@ function FormSignUp() {
       </div>
       {/* sign in with google end */}
       {/* link start */}
-      <div className="flex justify-center text-sm text-gray-03">
-        Already have an account? <span>  <a className="text-primary font-bold ml-2">Sign in here</a></span>
+      <div className="flex justify-center text-sm text-gray-01">
+        Already have an account?&nbsp;
+        <Link to="/login" className="text-primary font-bold">
+          Sign in here
+        </Link>
       </div>
       {/* link end */}
     </>
