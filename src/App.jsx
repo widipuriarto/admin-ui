@@ -5,23 +5,13 @@ import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
 import ErrorPage from "./pages/error"
 import ForgotPasswordPage from "./pages/forgotPassword";
 import DashboardPage from "./pages/dashboard";
+import BalancePage from "./pages/balance";
 
 function App() {
   const myRouter = createBrowserRouter([
     {
       path: "/",
       element: <DashboardPage />,
-      // element: (
-      //   <div className="flex justify-center items-center min-h-screen">
-      //     <Link to="/login" className="p-2 m-5 bg-primary text-white">
-      //       Login
-      //     </Link>
-      //     |
-      //     <Link to="/register" className="p-2 m-5 bg-primary text-white">
-      //       Register
-      //     </Link>
-      //   </div>
-      // ),
       errorElement: <ErrorPage />
     },
     {
@@ -35,6 +25,10 @@ function App() {
     {
       path: "/forgot-password",
       element: <ForgotPasswordPage />
+    },
+    {
+      path: "/balance",
+      element: <BalancePage />
     }
   ]);
 
