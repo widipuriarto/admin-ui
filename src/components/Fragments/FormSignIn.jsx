@@ -16,8 +16,15 @@ function FormSignIn() {
           <div className="mb-6">
             <LabeledInput label="Password" id="password" type="password" placeholder="••••••••" name="password" />
           </div>
-          <div className="mb-3">
-            <CheckBox label="Keep me signed in" id="status" type="checkbox" name="status" />
+          <div className="flex items-center justify-between">
+            <div className="mb-3">
+              <CheckBox label="Keep me signed in" id="status" type="checkbox" name="status" />
+            </div>
+            <div className="mb-3">
+              <Link to="/forgot-password">
+                <div className="text-xs text-primary">Forgot Password</div>
+              </Link>
+            </div>
           </div>
           <Button>Login</Button>
         </form>
