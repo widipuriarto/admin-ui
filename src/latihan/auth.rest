@@ -1,0 +1,14 @@
+### login
+POST https://jwt-auth-eight-neon.vercel.app/login
+Content-Type: application/json
+
+{
+  "email": "111202314962@mhs.dinus.ac.id",
+  "password": "123456"
+}
+
+
+### logout
+POST https://jwt-auth-eight-neon.vercel.app/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI2MCwibmFtZSI6IlBVUklBUlRPIiwiZW1haWwiOiIxMTEyMDIzMTQ5NjJAbWhzLmRpbnVzLmFjLmlkIiwiaWF0IjoxNzgwOTY2OTE3LCJleHAiOjE3ODEwNTMzMTd9.1hLilmRVCpKQ-mJrj_OyzO3pdeeW_dKnHifkZgrOJEY
+
