@@ -3,18 +3,27 @@ import LabeledInput from "../Elements/LabeledInput";
 import Button from "../Elements/Button";
 import CheckBox from "../Elements/CheckBox";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
-function FormSignIn() {
+function FormSignIn({ onSubmit }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(email, password);
+  };
+
   return (
     <>
       {/* form start */}
       <div className="mt-16">
-        <form action="">
+        <form action="" onSubmit={handleSubmit}>
           <div className="mb-6">
-            <LabeledInput label="Email Address" id="email" type="email" placeholder="hello@example.com" name="email" />
+            <LabeledInput label="Email Address" id="email" type="email" placeholder="hello@example.com" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div className="mb-6">
-            <LabeledInput label="Password" id="password" type="password" placeholder="••••••••" name="password" />
+            <LabeledInput label="Password" id="password" type="password" placeholder="••••••••" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
           <div className="flex items-center justify-between">
             <div className="mb-3">
@@ -53,7 +62,9 @@ function FormSignIn() {
       {/* sign in with google end */}
       {/* link start */}
       <div className="flex justify-center">
-        <Link to="/register" className="text-primary text-sm font-bold">Create an account</Link>
+        <Link to="/register" className="text-primary text-sm font-bold">
+          Create an account
+        </Link>
       </div>
       {/* link end */}
     </>
