@@ -3,7 +3,7 @@ import AuthLayout from "../components/Layouts/AuthLayout";
 import FormSignIn from "../components/Fragments/FormSignIn";
 import { loginService } from "../service/authService";
 import { AuthContext } from "../context/authContext";
-import AppSnackBar from "../components/Elements/AppSnackBar";
+import AppSnackBar from "../components/Elements/AppSnackbar";
 
 function signIn() {
   const { login } = useContext(AuthContext);
