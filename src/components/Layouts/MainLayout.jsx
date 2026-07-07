@@ -6,6 +6,12 @@ import Icon from "../Elements/Icon";
 import { NavLink } from "react-router-dom";
 import { ThemeContext } from "../../context/themeContext";
 import { AuthContext } from "../../context/authContext";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import { logoutService } from "../../service/authService";
+import { DarkModeContext } from "../../context/darkModeContext";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 
 function MainLayout(props) {
   const { children } = props;
@@ -31,8 +37,12 @@ function MainLayout(props) {
   ];
 
   const { user, logout } = useContext(AuthContext);
+  const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
+
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const handleLogout = async () => {
+    setIsLoggingOut(true);
     try {
       await logoutService();
       logout();
@@ -41,6 +51,8 @@ function MainLayout(props) {
       if (err.status === 401) {
         logout();
       }
+    } finally {
+      setIsLoggingOut(false);
     }
   };
 
@@ -90,8 +102,10 @@ function MainLayout(props) {
           </div>
         </aside>
 
-        <div className="bg-special-mainBg flex-1 flex flex-col">
-          <header className="border border-b border-gray-05 px-6 py-7 flex justify-between items-center">
+        {/* Ubah Background konten utama */}
+        <div className={`flex-1 flex flex-col ${isDarkMode ? "bg-defaultBlack text-white" : "bg-special-mainBg text-black"}`}>
+          {/* Ubah Background Header/Navbar */}
+          <header className={`border-b border-gray-05 px-6 py-7 flex justify-between items-center ${isDarkMode ? "bg-defaultBlack" : "bg-white"}`}>
             <div className="flex items-center">
               <div className="font-bold text-2xl me-6">{user.name}</div>
               <div className="text-gray-03 flex">
@@ -106,16 +120,26 @@ function MainLayout(props) {
               </div>
             </div>
             <div className="flex items-center">
+              {/* Tombol Toggle diletakkan di Navbar */}
+              <button onClick={toggleDarkMode} className="me-6 p-2 rounded-full transition cursor-pointer text-gray-03">
+                {isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}
+              </button>
+
               <div className="me-10">
                 <NotificationsIcon className="text-primary scale-110" />
               </div>
-              <Input backgroundColor="bg-white" border="border-white" />
+
+              {/* Revisi Input agar ikut menjadi gelap */}
+              <Input backgroundColor={isDarkMode ? "bg-gray-800 text-white" : "bg-white"} border={isDarkMode ? "border-gray-700" : "border-white"} />
             </div>
           </header>
 
           <main className="flex-1 px-6 py-4">{children}</main>
         </div>
       </div>
+      <Backdrop sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }} open={isLoggingOut}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </>
   );
 }

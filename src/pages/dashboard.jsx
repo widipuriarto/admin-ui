@@ -6,13 +6,14 @@ import CardUpcomingBill from "../components/Fragments/CardUpcomingBill";
 import CardRecentTransaction from "../components/Fragments/CardRecentTransaction";
 import CardStatistic from "../components/Fragments/CardStatistic";
 import CardExpenseBreakdown from "../components/Fragments/CardExpenseBreakdown";
-import { transactions, bills, expensesBreakdowns, balances, goals, expensesStatistics } from "../data";
-import { goalService } from "../service/dataService";
+import { transactions, expensesBreakdowns, balances, expensesStatistics } from "../data"; 
+import { goalService, billsService } from "../service/dataService";
 import { AuthContext } from "../context/authContext";
 import AppSnackBar from "../components/Elements/AppSnackbar";
 
 function Dashboard() {
   const [goals, setGoals] = useState({});
+  const [bills, setBills] = useState([]);
   const { logout } = useContext(AuthContext);
 
   const [snackbar, setSnackbar] = useState({
@@ -30,20 +31,23 @@ function Dashboard() {
       const data = await goalService();
       setGoals(data);
     } catch (err) {
-      setSnackbar({
-        open: true,
-        message: "Gagal mengambil data goals",
-        severity: "error",
-      });
-      if (err.status === 401) {
-        logout();
-      }
+      if (err.status === 401) logout();
+    }
+  };
+
+  const fetchBills = async () => {
+    try {
+      const data = await billsService();
+      setBills(data);
+    } catch (err) {
+      if (err.status === 401) logout();
     }
   };
 
   useEffect(() => {
     fetchGoals();
-  }, []);
+    fetchBills();
+  }, [logout]);
 
 
   return (

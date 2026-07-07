@@ -8,6 +8,7 @@ import DashboardPage from "./pages/dashboard";
 import BalancePage from "./pages/balance";
 import { useContext } from "react";
 import { AuthContext } from "./context/authContext";
+import ExpensesPage from './pages/expenses';
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -51,6 +52,14 @@ function App() {
       element: (
         <RequireAuth>
           <BalancePage />
+        </RequireAuth>
+      ),
+    },
+    {
+      path: "/expense",
+      element: (
+        <RequireAuth>
+          <ExpensesPage />
         </RequireAuth>
       ),
     },
